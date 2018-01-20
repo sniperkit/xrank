@@ -1,0 +1,122 @@
+syntax = "proto2";
+package serverproto;
+
+enum MessageType {
+  TypeGetRequest = 10000;
+  TypeGetResponse = 10001;
+  TypeGetByRankRequest = 10002;
+  TypeGetByRankResponse = 10003;
+  TypeGetRangeRequest = 10004;
+  TypeGetRangeResponse = 10005;
+  TypeUpdateRequest = 10006;
+  TypeUpdateResponse = 10007;
+  TypeDeleteRequest = 10008;
+  TypeDeleteResponse = 10009;
+}
+
+message RankUnit {
+  optional uint64 id = 1;
+  optional uint64 key = 2;
+  optional bytes  value = 3;
+}
+
+message ServerTimeRange {
+  optional int64 begin = 1;
+  optional int64 end = 2;
+}
+
+message GetRequest {
+  // 操作的排行榜ID
+  optional uint32 rank = 1;
+  // 查询的数据ID
+  optional uint64 id = 2;
+}
+
+message GetResponse {
+  // 操作的排行榜ID
+  optional uint32 rank = 1;
+  // 查询的数据排名, 0表示未上榜
+  optional uint32 pos = 2;
+  // 查询的数据
+  optional RankUnit data = 3;
+}
+
+message GetByRankRequest {
+  // 操作的排行榜ID
+  optional uint32 rank = 1;
+  // 查询的数据排名
+  optional uint32 pos = 2;
+}
+
+message GetByRankResponse {
+  // 操作的排行榜ID
+  optional uint32 rank = 1;
+  // 查询的数据排名, 0表示未上榜
+  optional uint32 pos = 2;
+  // 查询的数据
+  optional RankUnit data = 3;
+}
+
+message GetRangeRequest {
+  // 操作的排行榜ID
+  optional uint32 rank = 1;
+  // 起始的数据排名
+  optional uint32 start = 2;
+  // 查询的数据量
+  optional uint32 num = 3;
+}
+
+message GetRangeResponse {
+  // 操作的排行榜ID
+  optional uint32 rank = 1;
+  // 查询的排行榜数据总量
+  optional uint32 total = 2;
+  // 查询的数据
+  repeated RankUnit data = 3;
+}
+
+message UpdateRequest {
+  // 操作的排行榜ID
+  optional uint32 rank = 1;
+  // 上报的数据
+  optional RankUnit data = 2;
+  // 是否需要返回上报结果
+  optional bool reply = 3;
+  // 是否需要返回本次上报之前对应的数据
+  optional bool last_data = 4;
+  // 是否跳过非上报时段校验
+  optional bool bypass_no_update = 5;
+  // 更新需要满足的服务器时间范围
+  optional ServerTimeRange server_time_range = 6;
+}
+
+message UpdateResponse {
+  // 操作的排行榜ID
+  optional uint32 rank = 1;
+  // 操作前的排名, 0表示未上榜
+  optional uint32 last_pos = 2;
+  // 操作后的排名, 0表示未上榜
+  optional uint32 pos = 3;
+  // 操作前对应的数据
+  optional RankUnit data = 4;
+}
+
+message DeleteRequest {
+  // 操作的排行榜ID
+  optional uint32 rank = 1;
+  // 操作数据的ID
+  optional uint64 id = 2;
+  // 是否需要返回删除结果
+  optional bool reply = 3;
+  // 是否需要返回本次删除之前对应的数据
+  optional bool last_data = 4;
+}
+
+message DeleteResponse {
+  // 操作的排行榜ID
+  optional uint32 rank = 1;
+  // 操作前的排名, 0表示未上榜
+  optional uint32 last_pos = 2;
+  // 操作前对应的数据
+  optional RankUnit data = 3;
+}
