@@ -1,0 +1,32 @@
+{
+	"ImportPath": "github.com/wangming1993/verb-rank",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v74",
+	"Deps": [
+		{
+			"ImportPath": "github.com/garyburd/redigo/internal",
+			"Rev": "8873b2f1995f59d4bcdd2b0dc9858e2cb9bf0c13"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/redis",
+			"Rev": "8873b2f1995f59d4bcdd2b0dc9858e2cb9bf0c13"
+		},
+		{
+			"ImportPath": "github.com/hishboy/gocommons/lang",
+			"Rev": "89887b2ade6d89e3b322e2e3c8e337ad5c6a447b"
+		},
+		{
+			"ImportPath": "github.com/moul/http2curl",
+			"Rev": "b1479103caacaa39319f75e7f57fc545287fca0d"
+		},
+		{
+			"ImportPath": "github.com/parnurzeal/gorequest",
+			"Comment": "v0.2.14-15-ge30af16",
+			"Rev": "e30af16d4e485943aab0b0885ad6bdbb8c0d3dc7"
+		},
+		{
+			"ImportPath": "golang.org/x/net/publicsuffix",
+			"Rev": "c4c3ea71919de159c9e246d7be66deb7f0a39a58"
+		}
+	]
+}
