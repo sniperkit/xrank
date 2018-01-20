@@ -1,0 +1,142 @@
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+    <link href="/css/main.css" rel="stylesheet">
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2004',  1000,      400],
+          ['2005',  1170,      460],
+          ['2006',  660,       1120],
+          ['2007',  1030,      540]
+        ]);
+
+        var options = {
+          title: 'Company Performance'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+<body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">GitHub Star Ranking</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!--
+        <div class="page-header">
+            <h1>GitHub Star Ranking</h1>
+            <p class="lead">aaaaaa. <a href="http://getbootstrap.com/getting-started/#disable-responsive">Read the documentation</a> aaaaaaaaaa.</p>
+        </div>
+
+        <h3>What changes</h3>
+        <p>Note the lack of the <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code>, aaaaaaa.</p>
+
+        <h3>Browsers, scrolling, and fixed elements</h3>
+        <p>aaaaaaaaaaaa. <strong class="text-danger">aaaaaaaaaaaaaaaaaaaaaaa.</strong> aaaaaaaaaaaaaaaaa.</p>
+        <p>aaaaaaaaaaaaaaaaaaa.</p>
+        -->
+
+        <h3>Realtime GitHub Star Ranking ({{.Language}})</h3>
+        <table class="table table-hover">
+            <tr>
+                <th>Rank</th><th>LastRank</th><th></th><th>FullName</th><th>Star</th><th>Last Star</th><th>LastUpdateAt</th><th>CreateAt</th>
+            </tr>
+            <tbody>
+            {{range .Rankings}}
+            {{if eq .Rank 1}}
+            <tr class="success">
+            {{else if eq .Rank 2}}
+            <tr class="info">
+            {{else if eq .Rank 3}}
+            <tr class="warning">
+            {{else}}
+            <tr>
+            {{end}}
+                <td>{{.Rank}}</td>
+
+                {{if eq .Rank .LastRank}}
+                <td>-</td>
+                {{else if eq .LastRank 0}}
+                <td><span class="text-danger">New!</span></td>
+                {{else if lt .Rank .LastRank}}
+                <td><span class="glyphicon glyphicon-arrow-up"></span>{{.LastRank}}</td>
+                {{else if gt .Rank .LastRank}}
+                <td><span class="glyphicon glyphicon-arrow-down"></span>{{.LastRank}}</td>
+                {{end}}
+
+                <td><a href="{{.UserURL}}"><img src="{{.Owner.AvatarURL}}" alt="{{.Owner.AvatarURL}}" class="img-rounded" style="width: 50px; height: 50px;"></a></td>
+                <td><a href="{{.HtmlURL}}">{{.FullName}}</a></td>
+                <td>{{.StargazersCount}}</td>
+
+                <td>{{with .LastStargazersCount}}{{.}}{{else}}---{{end}}</td>
+                <td>{{.FormatTime .UpdatedAt}}</td>
+                <td>{{.FormatTime .CreatedAt}}</td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
+
+    </div> <!-- /container -->
+
+    <!--
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+</html>
