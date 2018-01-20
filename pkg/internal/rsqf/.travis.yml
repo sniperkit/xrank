@@ -1,0 +1,13 @@
+language: go
+go:
+  - 1.7
+  - 1.8
+  - 1.9
+  - master
+before_install:
+  - go get -u github.com/golang/lint/golint
+script:
+  - make
+after_success:
+  - mv cover.out coverage.txt
+  - bash <(curl -s https://codecov.io/bash)
