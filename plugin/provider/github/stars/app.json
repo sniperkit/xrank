@@ -1,0 +1,10 @@
+{
+  "name": "GitHub Star Ranking",
+  "description": "github starred ranking webapp for golang（Go）",
+  "repository": "https://github.com/kyokomi/github-star-ranking",
+  "logo": "https://avatars0.githubusercontent.com/u/1456047",
+  "keywords": ["go", "martini", "oauth2.0"],
+  "env": {
+    "BUILDPACK_URL": "https://github.com/kr/heroku-buildpack-go.git"
+   }
+}
